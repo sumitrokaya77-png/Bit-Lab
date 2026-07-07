@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Select Period Date &mdash; Pink Cycle</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #FFF0FB;
+      overflow-x: hidden;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding-bottom: 30px;
+    }
+
+    .topbar {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px 12px;
+      background: #FFF0FB;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .topbar-title { font-size: 17px; font-weight: 700; color: #FF1FA9; }
+
+    .btn-cancel {
+      background: #FFD2EE;
+      border: 1.5px solid #FF1FA9;
+      color: #FF1FA9;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.12s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn-cancel:hover { background: #FF1FA9; color: #fff; }
+
+    .content {
+      width: 100%;
+      max-width: 480px;
+      padding: 0 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .yr-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .yr-section-lbl {
+      font-size: 11px;
+      font-weight: 700;
+      color: #FF62C3;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .yr-wheel-wrap {
+      position: relative;
+      width: 150px;
+      height: 120px;
+      overflow: hidden;
+      border: 1.5px solid #FF1FA9;
+      border-radius: 14px;
+      background: #FFF0FB;
+    }
+
+    .yr-wheel-wrap::before,
+    .yr-wheel-wrap::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 40px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .yr-wheel-wrap::before { top: 0; background: linear-gradient(to bottom, #FFF0FB, transparent); }
+    .yr-wheel-wrap::after { bottom: 0; background: linear-gradient(to top, #FFF0FB, transparent); }
+
+    .yr-sel-bar {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 40px;
+      transform: translateY(-50%);
+      border-top: 1.5px solid #FF1FA9;
+      border-bottom: 1.5px solid #FF1FA9;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .yr-wheel {
+      height: 100%;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .yr-wheel::-webkit-scrollbar { display: none; }
+
+    .yr-item {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      scroll-snap-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #FF62C3;
+      cursor: pointer;
+    }
+
+    .yr-item.yr-active { color: #FF1FA9; font-size: 19px; }
+
+    .cal-box {
+      width: 100%;
+      border: 2px solid #FF1FA9;
+      border-radius: 16px;
+      padding: 12px 10px 14px;
+      background: #fff;
+    }
+
+    .month-nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .mn-arrow {
+      background: #FFD2EE;
+      border: 1.5px solid #FF1FB0;
+      color: #FF1FB0;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 22px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.12s, color 0.12s;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .mn-arrow:hover { background: #FF1FB0; color: #fff; }
+
+    .mn-label {
+      font-size: 16px;
+      font-weight: 700;
+      color: #C8007E;
+      text-align: center;
+      flex: 1;
+    }
+
+    .p-wdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+
+    .p-wdays span {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #FF62C3;
+    }
+
+    .p-daygrid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+    }
+
+    .pd-cell {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 1.5px solid #FFD6EF;
+      background: #FFF0FB;
+      color: #FF1FA9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.1s, border-color 0.1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .pd-cell:hover { border-color: #FF1FA9; background: #FFE4F5; }
+    .pd-cell.sel-start, .pd-cell.sel-end { background: #FF1FA9; color: #fff; border-color: #FF1FA9; }
+    .pd-cell.sel-mid { background: #FF62C3; border-color: #FF62C3; color: #fff; }
+    .pd-cell.em { background: transparent; border-color: transparent; cursor: default; color: transparent; pointer-events: none; }
+    .pd-cell.td { box-shadow: 0 0 0 2px #FF1FA9; }
+    .pd-cell.invalid { opacity: 0.25; cursor: not-allowed; }
+
+    .range-info {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #FF1FA9;
+      min-height: 18px;
+      margin-top: 8px;
+    }
+
+    .val-error {
+      display: none;
+      background: #FFE4EC;
+      border: 1.5px solid #FF6B9D;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #C0264F;
+      text-align: center;
+    }
+
+    .quick-btns { display: flex; gap: 10px; }
+
+    .quick-btn {
+      flex: 1;
+      padding: 12px 0;
+      border-radius: 50px;
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #FFD2EE;
+      color: #FF1FA9;
+      transition: background 0.12s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .quick-btn:hover { background: #FFB8E0; }
+    .quick-btn:active { transform: scale(0.97); }
+
+    .btn-confirm {
+      width: 100%;
+      padding: 15px;
+      border-radius: 50px;
+      border: none;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #FF1FB0;
+      color: #fff;
+      transition: background 0.15s, transform 0.1s;
+      box-shadow: 0 6px 18px rgba(255, 31, 176, 0.3);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn-confirm:hover:not(:disabled) { background: #C8008C; }
+    .btn-confirm:active { transform: scale(0.98); }
+    .btn-confirm:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <span class="topbar-title">Select period dates</span>
+    <button class="btn-cancel" id="btnCancel">&times; Cancel</button>
+  </div>
+
+  <div class="content">
+    <div class="yr-section">
+      <div class="yr-section-lbl">Year</div>
+      <div class="yr-wheel-wrap">
+        <div class="yr-sel-bar"></div>
+        <div class="yr-wheel" id="yrWheel"></div>
+      </div>
+    </div>
+
+    <div class="cal-box">
+      <div class="month-nav-row">
+        <button class="mn-arrow" id="mnPrev" aria-label="Previous month">&#8249;</button>
+        <span class="mn-label" id="mnLabel">&mdash;</span>
+        <button class="mn-arrow" id="mnNext" aria-label="Next month">&#8250;</button>
+      </div>
+
+      <div class="p-wdays">
+        <span>Su</span><span>Mo</span><span>Tu</span><span>We</span>
+        <span>Th</span><span>Fr</span><span>Sa</span>
+      </div>
+
+      <div class="p-daygrid" id="pdGrid"></div>
+      <div class="range-info" id="rangeInfo">Tap a date to begin</div>
+    </div>
+
+    <div class="val-error" id="valError"></div>
+
+    <div class="quick-btns">
+      <button class="quick-btn" id="btnToday">Today</button>
+      <button class="quick-btn" id="btnReset">Reset</button>
+    </div>
+
+    <button class="btn-confirm" id="btnConfirm" disabled>Confirm</button>
+  </div>
+
+  <script>
+    (function () {
+      var STORAGE_KEY = "pc_period";
+      var CYCLE_DAYS = 28;
+      var DEF_PERIOD_LEN = 5;
+      var ITEM_H = 40;
+      var YR_START = 2018;
+      var YR_END = 2035;
+      var MAX_PAST_DAYS = 15;
+
+      var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      var SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+      var today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      var periodStart = null;
+      var periodEnd = null;
+      var periodLength = 0;
+      var isLogged = false;
+
+      var pickerMonth = today.getMonth();
+      var pickerYear = today.getFullYear();
+
+      function ts(y, m, d) {
+        return new Date(y, m, d).getTime();
+      }
+
+      function addDays(date, n) {
+        var d = new Date(date);
+        d.setDate(d.getDate() + n);
+        return d;
+      }
+
+      function fmtShort(d) {
+        return SHORT[d.getMonth()] + " " + d.getDate();
+      }
+
+      function daysInMonth(y, m) {
+        return new Date(y, m + 1, 0).getDate();
+      }
+
+      function firstWeekday(y, m) {
+        return new Date(y, m, 1).getDay();
+      }
+
+      function goBackToLog() {
+        window.location.href = "../Dashboard/Dashboard.html";
+      }
+
+      function isStart(y, m, d) {
+        return periodStart && periodStart.y === y && periodStart.m === m && periodStart.d === d;
+      }
+
+      function isEnd(y, m, d) {
+        return periodEnd && periodEnd.y === y && periodEnd.m === m && periodEnd.d === d;
+      }
+
+      function isInRange(y, m, d) {
+        if (!periodStart || !periodEnd) return false;
+        var t = ts(y, m, d);
+        return t >= ts(periodStart.y, periodStart.m, periodStart.d) &&
+               t <= ts(periodEnd.y, periodEnd.m, periodEnd.d);
+      }
+
+      function isDayTooOld(y, m, d) {
+        var daysAgo = Math.round((today.getTime() - ts(y, m, d)) / 86400000);
+        return daysAgo > MAX_PAST_DAYS;
+      }
+
+      function getValidationError() {
+        if (!periodStart || !periodEnd) return null;
+
+        var endDate = new Date(periodEnd.y, periodEnd.m, periodEnd.d);
+        var daysAgo = Math.round((today.getTime() - endDate.getTime()) / 86400000);
+
+        if (daysAgo > MAX_PAST_DAYS) {
+          return "Period end date is " + daysAgo + " days ago. Please select a date within the last " + MAX_PAST_DAYS + " days.";
+        }
+
+        return null;
+      }
+
+      function updateControls() {
+        var errEl = document.getElementById("valError");
+        var btn = document.getElementById("btnConfirm");
+        var err = getValidationError();
+        var valid = !!periodStart && !err;
+
+        errEl.textContent = err || "";
+        errEl.style.display = err ? "block" : "none";
+        btn.disabled = !valid;
+        btn.style.opacity = valid ? "1" : "0.4";
+        btn.style.cursor = valid ? "pointer" : "not-allowed";
+      }
+
+      function updateRangeInfo() {
+        var el = document.getElementById("rangeInfo");
+
+        if (!periodStart || !periodEnd) {
+          el.textContent = "Tap a date to begin";
+          return;
+        }
+
+        var s = new Date(periodStart.y, periodStart.m, periodStart.d);
+        var e = new Date(periodEnd.y, periodEnd.m, periodEnd.d);
+        periodLength = Math.round((e - s) / 86400000) + 1;
+
+        el.textContent = fmtShort(s) + " \u2014 " + fmtShort(e) + " (" + periodLength + " day" + (periodLength === 1 ? "" : "s") + ")";
+      }
+
+      function onDayClick(y, m, d) {
+        var clicked = ts(y, m, d);
+
+        if (!periodStart) {
+          periodStart = { y: y, m: m, d: d };
+          periodEnd = { y: y, m: m, d: d };
+        } else {
+          var s = ts(periodStart.y, periodStart.m, periodStart.d);
+          var e = ts(periodEnd.y, periodEnd.m, periodEnd.d);
+
+          if (clicked < s) {
+            periodStart = { y: y, m: m, d: d };
+          } else if (clicked > e) {
+            periodEnd = { y: y, m: m, d: d };
+          } else if (clicked === s && s === e) {
+            periodStart = null;
+            periodEnd = null;
+            periodLength = 0;
+          } else if (clicked === s) {
+            var nd = addDays(new Date(y, m, d), 1);
+            periodStart = { y: nd.getFullYear(), m: nd.getMonth(), d: nd.getDate() };
+          } else if (clicked === e) {
+            var pd = addDays(new Date(y, m, d), -1);
+            periodEnd = { y: pd.getFullYear(), m: pd.getMonth(), d: pd.getDate() };
+          } else {
+            periodStart = { y: y, m: m, d: d };
+            periodEnd = { y: y, m: m, d: d };
+          }
+        }
+
+        renderPickerGrid();
+        updateRangeInfo();
+        updateControls();
+      }
+
+      function renderPickerGrid() {
+        var grid = document.getElementById("pdGrid");
+        var fd = firstWeekday(pickerYear, pickerMonth);
+        var dim = daysInMonth(pickerYear, pickerMonth);
+        var total = Math.ceil((fd + dim) / 7) * 7;
+        var tKey = ts(today.getFullYear(), today.getMonth(), today.getDate());
+
+        grid.innerHTML = "";
+
+        for (var i = 0; i < total; i++) {
+          var cell = document.createElement("div");
+
+          if (i < fd || i >= fd + dim) {
+            cell.className = "pd-cell em";
+          } else {
+            var day = i - fd + 1;
+            var tooOld = isDayTooOld(pickerYear, pickerMonth, day);
+
+            cell.className =
+              "pd-cell" +
+              (isStart(pickerYear, pickerMonth, day) ? " sel-start" :
+               isEnd(pickerYear, pickerMonth, day) ? " sel-end" :
+               isInRange(pickerYear, pickerMonth, day) ? " sel-mid" : "") +
+              (ts(pickerYear, pickerMonth, day) === tKey ? " td" : "") +
+              (tooOld ? " invalid" : "");
+
+            cell.textContent = day;
+
+            if (!tooOld) {
+              (function (yy, mm, dd) {
+                cell.addEventListener("click", function () {
+                  onDayClick(yy, mm, dd);
+                });
+              })(pickerYear, pickerMonth, day);
+            }
+          }
+
+          grid.appendChild(cell);
+        }
+      }
+
+      function updateMonthLabel() {
+        document.getElementById("mnLabel").textContent = MONTHS[pickerMonth] + " " + pickerYear;
+      }
+
+      function syncWheel() {
+        var wheel = document.getElementById("yrWheel");
+        wheel.scrollTop = (pickerYear - YR_START) * ITEM_H;
+
+        wheel.querySelectorAll(".yr-item").forEach(function (el) {
+          el.classList.toggle("yr-active", parseInt(el.dataset.year, 10) === pickerYear);
+        });
+      }
+
+      function buildYearWheel() {
+        var wheel = document.getElementById("yrWheel");
+        var scrollTimer;
+
+        wheel.innerHTML = "";
+
+        var padTop = document.createElement("div");
+        padTop.style.height = "40px";
+        wheel.appendChild(padTop);
+
+        for (var y = YR_START; y <= YR_END; y++) {
+          var item = document.createElement("div");
+          item.className = "yr-item" + (y === pickerYear ? " yr-active" : "");
+          item.textContent = y;
+          item.dataset.year = y;
+          wheel.appendChild(item);
+        }
+
+        var padBottom = document.createElement("div");
+        padBottom.style.height = "40px";
+        wheel.appendChild(padBottom);
+
+        wheel.scrollTop = (pickerYear - YR_START) * ITEM_H;
+
+        wheel.addEventListener("scroll", function () {
+          clearTimeout(scrollTimer);
+
+          scrollTimer = setTimeout(function () {
+            var idx = Math.round(wheel.scrollTop / ITEM_H);
+            var yr = Math.min(Math.max(YR_START + idx, YR_START), YR_END);
+
+            if (yr === pickerYear) return;
+
+            pickerYear = yr;
+            syncWheel();
+            updateMonthLabel();
+            renderPickerGrid();
+          }, 80);
+        });
+      }
+
+      function loadExisting() {
+        try {
+          var raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return;
+
+          var saved = JSON.parse(raw);
+          periodStart = saved.periodStart || null;
+          periodEnd = saved.periodEnd || null;
+          periodLength = saved.periodLength || 0;
+          isLogged = !!saved.isLogged;
+
+          if (periodStart) {
+            pickerYear = periodStart.y;
+            pickerMonth = periodStart.m;
+          }
+        } catch (e) {
+          periodStart = null;
+          periodEnd = null;
+          periodLength = 0;
+          isLogged = false;
+        }
+      }
+
+      function saveSelection() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          periodStart: periodStart,
+          periodEnd: periodEnd,
+          periodLength: periodLength,
+          isLogged: isLogged
+        }));
+      }
+
+      document.getElementById("mnPrev").addEventListener("click", function () {
+        pickerMonth--;
+
+        if (pickerMonth < 0) {
+          pickerMonth = 11;
+          pickerYear--;
+          syncWheel();
+        }
+
+        updateMonthLabel();
+        renderPickerGrid();
+      });
+
+      document.getElementById("mnNext").addEventListener("click", function () {
+        pickerMonth++;
+
+        if (pickerMonth > 11) {
+          pickerMonth = 0;
+          pickerYear++;
+          syncWheel();
+        }
+
+        updateMonthLabel();
+        renderPickerGrid();
+      });
+
+      document.getElementById("btnToday").addEventListener("click", function () {
+        var end = addDays(today, DEF_PERIOD_LEN - 1);
+
+        periodStart = { y: today.getFullYear(), m: today.getMonth(), d: today.getDate() };
+        periodEnd = { y: end.getFullYear(), m: end.getMonth(), d: end.getDate() };
+        pickerYear = today.getFullYear();
+        pickerMonth = today.getMonth();
+
+        syncWheel();
+        updateMonthLabel();
+        renderPickerGrid();
+        updateRangeInfo();
+        updateControls();
+      });
+
+      document.getElementById("btnReset").addEventListener("click", function () {
+        periodStart = null;
+        periodEnd = null;
+        periodLength = 0;
+
+        renderPickerGrid();
+        updateRangeInfo();
+        updateControls();
+      });
+
+      document.getElementById("btnCancel").addEventListener("click", goBackToLog);
+
+      document.getElementById("btnConfirm").addEventListener("click", function () {
+        var err = getValidationError();
+        if (!periodStart || !periodEnd || err) return;
+
+        updateRangeInfo();
+        saveSelection();
+        goBackToLog();
+      });
+
+      loadExisting();
+      buildYearWheel();
+      updateMonthLabel();
+      renderPickerGrid();
+      updateRangeInfo();
+      updateControls();
+    })();
+  </script>
+</body>
+</html>
