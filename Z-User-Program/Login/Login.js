@@ -1,17 +1,21 @@
-// Global Application Runtime Framework Instances
-let resendTimerInstance = null;
-let currentQuestionIndex = 0;
-let temporarySelectedOption = "";
+// ==================== GLOBAL STORAGE VARIABLES ====================
 
-/**
- * Unified Core Parameter Storage Schema Object Box
- * Safely aggregates and captures structural entries across all fields
- */
+// 1. Login Phase Variables
+let loginIdentity = "";
+let loginPassword = "";
+
+// 2. Account Creation Phase Variables
+let registrationPhone = "";
+let registrationPassword = "";
+let verificationOTP = "";
+let verificationDOB = "";
+
+// 3. Q&A Profile Storage Schema Object Box
 const userData = {
     name: "",                  // Q1  — String
-    lastPeriodDate: "",        // Q2  — Date (YYYY-MM-DD)
-    periodLength: 5,           // Q3  — Number (default: 5)
-    cycleLength: 28,           // Q4  — Number (default: 28)
+    lastPeriodDate: "",        // Q2  — String (YYYY-MM-DD)
+    periodLength: 5,           // Q3  — Number
+    cycleLength: 28,           // Q4  — Number
     regularity: "",            // Q5  — String
     flow: "",                  // Q6  — String
     pain: "",                  // Q7  — String
@@ -19,21 +23,86 @@ const userData = {
     isMarried: ""              // Q9  — String ("Yes" / "No")
 };
 
-// Comprehensive Dynamic Validation Questionnaire Deck Matrix Map
+// Global Interactive State Framework Control Trackers
+let resendTimerInstance = null;
+let currentQuestionIndex = 0;
+let temporarySelectedOption = "";
+
+// Comprehensive Questionnaire Dataset Matrix Map
 const validationSurveyDeck = [
     { id: "name", text: "What is your name?", type: "text", mandatory: true, placeholder: "e.g., Sara" },
     { id: "lastPeriodDate", text: "What was the first day of your last period?", type: "date", mandatory: true },
     { id: "periodLength", text: "How many days does your period usually last?", type: "number", mandatory: true, min: 1, max: 14, default: 5 },
     { id: "cycleLength", text: "How long is your usual cycle? (Count from Day 1 of one period to Day 1 of the next period)", type: "number", mandatory: true, min: 15, max: 45, default: 28 },
-    { id: "regularity", text: "Are your periods usually regular or irregular?", type: "select", mandatory: false, options: ["Regular (same dates every month)", "Slightly irregular (1 week difference only)", "Very irregular / unpredictable"] },
+    { id: "regularity", text: "Are your periods usually regular or irregular?", type: "select", mandatory: false, options: ["Regular (same dates every month)", "Slightly irregular (±1 week difference)", "Very irregular / unpredictable"] },
     { id: "flow", text: "How would you describe your usual flow?", type: "select", mandatory: false, options: ["Light", "Moderate", "Heavy", "Very heavy"] },
     { id: "pain", text: "Do you experience pain during your period?", type: "select", mandatory: false, options: ["No pain at all", "Mild (doesn't affect my day)", "Moderate (slows me down)", "Severe (need painkillers or rest)"] },
     { id: "ageGroup", text: "What is your age group?", type: "select", mandatory: false, options: ["Under 18", "18–25", "26–35", "36–45", "45+"] },
     { id: "isMarried", text: "Are you married?", type: "select", mandatory: false, options: ["Yes", "No"] }
 ];
 
+// ==================== INTERACTION FLOW CONTROLLERS ====================
+
 /**
- * Masked structural password clarity visibility switcher router logic
+ * Directly logs the user into the system, bypassing questionnaire configurations
+ */
+function handleLogin(event) {
+    event.preventDefault();
+    
+    // Save credentials into variables
+    loginIdentity = document.getElementById('login-identity').value.trim();
+    loginPassword = document.getElementById('login-password').value;
+
+    console.log("Login captured for identity:", loginIdentity);
+    console.log("Redirecting directly to Dashboard tracking view...");
+    
+    // Smooth bypass route directly out of setup architecture files
+    window.location.href = "../Dashboard/Dashboard.html"; 
+}
+
+/**
+ * Saves initial registration entry keys and proceeds to OTP verification steps
+ */
+function handleRegistration(event) {
+    event.preventDefault();
+    const passwordField = document.getElementById('reg-password').value;
+    const confirmPasswordField = document.getElementById('reg-confirm-password').value;
+    const warningBox = document.getElementById('password-warning');
+
+    const regexRequirements = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
+    
+    if (!regexRequirements.test(passwordField) || passwordField !== confirmPasswordField) {
+        warningBox.classList.remove('hidden');
+        warningBox.textContent = (passwordField !== confirmPasswordField) ? "Password fields do not match." : "Password must contain letters and numbers.";
+        return;
+    }
+
+    // Save signup input data into variables
+    registrationPhone = document.getElementById('reg-phone').value.trim();
+    registrationPassword = passwordField;
+
+    warningBox.classList.add('hidden');
+    navigateTo('l3'); // Forward path onto verification panel
+}
+
+/**
+ * Saves verification payload values and triggers the dynamic profile questionnaire setup cards
+ */
+function handleVerification(event) {
+    event.preventDefault();
+    
+    // Save code verification tokens into variables
+    verificationOTP = document.getElementById('verification-otp').value.trim();
+    verificationDOB = document.getElementById('verification-dob').value;
+
+    console.log("Verification completed successfully. Launching configuration questionnaire setup card maps...");
+    navigateTo('lQ1'); // New signups securely route to build their personalized profile data card
+}
+
+// ==================== CORE UI ENGINE MECHANICAL UTILITIES ====================
+
+/**
+ * Masked password text presentation visibility utility switcher
  */
 function togglePasswordVisibility(inputFieldId, triggerButtonRef) {
     const inputField = document.getElementById(inputFieldId);
@@ -54,7 +123,7 @@ function togglePasswordVisibility(inputFieldId, triggerButtonRef) {
 }
 
 /**
- * Handles core localized display viewport rendering routing states
+ * Structural view states layout manager router
  */
 function navigateTo(screenId) {
     document.querySelectorAll('.auth-screen').forEach(screen => {
@@ -72,46 +141,13 @@ function navigateTo(screenId) {
         clearInterval(resendTimerInstance);
     }
 
-    // Launch question generator initialization routines upon accessing panel target view state
     if (screenId === 'lQ1') {
         renderQuestionState();
     }
 }
 
-function handleLogin(event) {
-    event.preventDefault();
-    console.log("Log in successful. Redirecting directly to profile setup steps...");
-    navigateTo('lQ1'); 
-}
-
-function handleRegistration(event) {
-    event.preventDefault();
-    const passwordField = document.getElementById('reg-password').value;
-    const confirmPasswordField = document.getElementById('reg-confirm-password').value;
-    const warningBox = document.getElementById('password-warning');
-
-    const regexRequirements = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
-    
-    if (!regexRequirements.test(passwordField) || passwordField !== confirmPasswordField) {
-        warningBox.classList.remove('hidden');
-        warningBox.textContent = (passwordField !== confirmPasswordField) ? "Password fields do not match." : "Password must contain letters and numbers.";
-        return;
-    }
-    warningBox.classList.add('hidden');
-    navigateTo('l3');
-}
-
 /**
- * Transition link method executed via verification view completion actions
- */
-function handleVerification(event) {
-    event.preventDefault();
-    console.log("Identity confirmed via OTP dashboard routing panel sequence.");
-    navigateTo('lQ1'); 
-}
-
-/**
- * Dynamic Interactive Display Engine layout generator for internal box spaces
+ * Dynamic content generator engine building inside the unified question card box
  */
 function renderQuestionState() {
     const questionConfig = validationSurveyDeck[currentQuestionIndex];
@@ -130,7 +166,6 @@ function renderQuestionState() {
 
     workspaceCanvas.innerHTML = "";
 
-    // Structural component type branch manager selection tree loops
     switch (questionConfig.type) {
         case "text":
             workspaceCanvas.innerHTML = `<input type="text" id="target-input-node" placeholder="${questionConfig.placeholder || ''}" value="${userData[questionConfig.id]}">`;
@@ -170,7 +205,7 @@ function renderQuestionState() {
 }
 
 /**
- * Internally mounted button tracker validation and navigation execution handler
+ * Internal progression button validation tracker
  */
 function handleQuestionNext() {
     const questionConfig = validationSurveyDeck[currentQuestionIndex];
@@ -184,14 +219,14 @@ function handleQuestionNext() {
     }
 
     if (questionConfig.mandatory && !currentExtractedValue) {
-        alert("This selection field is required to establish core system analytics metrics.");
+        alert("This selection field is required.");
         return;
     }
 
     if (questionConfig.type === "number" && currentExtractedValue) {
         const structuralNumericValue = parseInt(currentExtractedValue, 10);
         if (structuralNumericValue < questionConfig.min || structuralNumericValue > questionConfig.max) {
-            alert(`Value boundaries constraint violation detected. Range: (${questionConfig.min}-${questionConfig.max})`);
+            alert(`Value boundary constraint error. Allowed range: (${questionConfig.min}-${questionConfig.max})`);
             return;
         }
         currentExtractedValue = structuralNumericValue;
@@ -212,18 +247,20 @@ function handleSkip() {
     advanceQuestionNavigator();
 }
 
+/**
+ * Directs sequential questionnaire matrix operations forward to dashboard landing maps
+ */
 function advanceQuestionNavigator() {
     currentQuestionIndex++;
     if (currentQuestionIndex < validationSurveyDeck.length) {
         renderQuestionState();
     } else {
-        console.log("Questionnaire mapping completed successfully. Finalized data profile matrix array package summaries:", userData);
+        console.log("New Account Profile complete! Ready to load tracker dashboards. Summary profiles mapping structures:", userData);
         
-        // Break out of onboarding and launch the primary Dashboard shell frame
+        // Pass setup profiles parameters cleanly forward into tracking dashboard files
         window.location.href = "../Dashboard/Dashboard.html";
     }
 }
-
 
 function initializeOTPTimer(totalSecondsDuration) {
     clearInterval(resendTimerInstance);
