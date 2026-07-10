@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,
+        maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF0FB">
+  <title>Log Period — Pink Cycle</title>
+  <link rel="stylesheet" href="log-calender.css">
+</head>
+<body>
+
+  <div class="pc-widget" id="pcWidget">
+
+    <!-- ══ STATE A: mini calendar + log button ══ -->
+    <div id="stateReady">
+
+      <div class="mini-card"
+           id="miniCal"
+           role="button"
+           tabindex="0"
+           aria-label="Open date picker to select period dates">
+
+        <div class="mini-top">
+          <span class="mini-month-lbl" id="miniLbl">—</span>
+          <span class="mini-hint">tap to select ›</span>
+        </div>
+
+        <div class="mini-wdays" aria-hidden="true">
+          <span>Su</span><span>Mo</span><span>Tu</span>
+          <span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+        </div>
+
+        <div class="mini-grid" id="miniGrid" aria-label="Calendar grid"></div>
+
+      </div><!-- /mini-card -->
+
+      <button class="pc-btn btn-log"
+              id="btnLog"
+              disabled
+              aria-label="Log your period">
+        Log period
+      </button>
+
+    </div><!-- /stateReady -->
+
+    <!-- ══ STATE B: logged display ══ -->
+    <div id="stateLogged" style="display:none;">
+
+      <div class="logged-box"
+           id="loggedBox"
+           aria-live="polite"
+           aria-atomic="true">
+      </div>
+
+      <button class="pc-btn btn-edit"
+              id="btnEdit"
+              aria-label="Edit period dates">
+        ✎ Edit period
+      </button>
+
+    </div><!-- /stateLogged -->
+
+  </div><!-- /pc-widget -->
+
+  <script src="log-calender.js"></script>
+</body>
+</html>
