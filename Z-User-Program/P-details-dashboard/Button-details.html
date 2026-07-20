@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pink Cycle - Cycle & Growth</title>
+  <style>
+    /* ==========================================================================
+       1. THEME DESIGN SYSTEM & RESET
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #FFFFFF;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #1A1A1A;
+    }
+
+    .phone-container {
+      width: 100%;
+      max-width: 420px;
+      height: 100vh;
+      max-height: 840px;
+      background-color: #FFF0FB;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    }
+
+    /* ==========================================================================
+       2. TOP FIXED NAVIGATION HEADER
+       ========================================================================== */
+    .dashboard-header {
+      display: grid;
+      grid-template-columns: 44px 1fr 44px;
+      align-items: center;
+      padding: 16px;
+      background-color: #FFFFFF;
+      border-bottom: 1px solid #FFE4F5;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+    
+    .btn-back-nav {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background-color: #FFF8FC;
+      border: 1px solid #FFE4F5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FF1FA9;
+      text-decoration: none;
+      transition: background-color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-back-nav:active {
+      background-color: #FFE4F5;
+    }
+
+    .dashboard-title-heading {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #1A1A1A;
+      letter-spacing: -0.3px;
+    }
+
+    /* ==========================================================================
+       3. SCROLLABLE SCREEN CANVAS
+       ========================================================================== */
+    .scroll-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 16px;
+      background-color: #FAFAFA;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Spacious Feature Dashboard Cards Configuration */
+    .menu-navigation-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background-color: #FFFFFF;
+      border: 1.5px solid #FFF2FA;
+      border-radius: 20px;
+      padding: 20px 16px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 4px 12px rgba(255, 31, 169, 0.01);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    /* Tactile Micro-Scaling Feedback Loop */
+    .menu-navigation-card:active {
+      transform: scale(0.98);
+      background-color: #FFFDFE;
+      border-color: #FF1FA9;
+      box-shadow: 0 2px 6px rgba(255, 31, 169, 0.04);
+    }
+
+    /* Custom Expanded Icon Asset Container Base */
+    .card-icon-frame {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background-color: #FFF0F8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background-color 0.2s ease;
+    }
+
+    .menu-navigation-card:active .card-icon-frame {
+      background-color: #FFE4F3;
+    }
+
+    .card-icon-frame img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    /* Central Detailed Text Stack Columns */
+    .card-text-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .card-main-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #FF1FA9;
+      letter-spacing: -0.2px;
+    }
+
+    .card-sub-description {
+      font-size: 12px;
+      line-height: 1.4;
+      color: #666666;
+      font-weight: 500;
+    }
+
+    /* Trailing Right-Hand Path Indicators */
+    .card-chevron-indicator {
+      color: #C5C5C7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 4px;
+      transition: color 0.2s ease;
+    }
+
+    .menu-navigation-card:active .card-chevron-indicator {
+      color: #FF1FA9;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="phone-container">
+    
+    <!-- Top Static Navigation Bar Header -->
+    <header class="dashboard-header">
+      <!-- Added target="_top" so the back navigation breaks out of iframe contexts cleanly if needed -->
+      <a href="../Dashboard/Dashboard.html" target="_top" class="btn-back-nav" aria-label="Back to Dashboard">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width:20px; height:20px;">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+      </a>
+      
+      <h1 class="dashboard-title-heading">Cycle & Growth</h1>
+      <div></div>
+    </header>
+
+    <!-- Scrollable Menu Canvas Space -->
+    <main class="scroll-body">
+
+      <!-- Navigation Element 1: Period Details Management Hub -->
+      <!-- Added target="_top" to launch as a standalone window outside the iframe layout shell -->
+      <a href="P-record-details.html" target="_top" class="menu-navigation-card">
+        <div class="card-icon-frame">
+          <img src="../user_ui_png/period-details.png" alt="Period Configuration Stream Icon">
+        </div>
+        <div class="card-text-stack">
+          <h2 class="card-main-title">Period Details</h2>
+          <p class="card-sub-description">your cycle Details help you to Analyze & get track on your cycle health.</p>
+        </div>
+        <div class="card-chevron-indicator">
+          <svg style="width:18px; height:18px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </div>
+      </a>
+
+      <!-- Navigation Element 2: Pregnancy Metric Monitor Tracking Node -->
+      <!-- Added target="_top" here as well so both options share uniform standalone page behaviors -->
+      <a href="Pregnant-details.html" target="_top" class="menu-navigation-card">
+        <div class="card-icon-frame">
+          <img src="../user_ui_png/pregnancy-details.png" alt="Pregnancy Metric Monitor Icon">
+        </div>
+        <div class="card-text-stack">
+          <h2 class="card-main-title">Pregnancy Details</h2>
+          <p class="card-sub-description">Monitor trimesters, track developmental milestones, and log routine prenatal health metrics.</p>
+        </div>
+        <div class="card-chevron-indicator">
+          <svg style="width:18px; height:18px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </div>
+      </a>
+
+    </main>
+
+  </div>
+
+</body>
+</html>

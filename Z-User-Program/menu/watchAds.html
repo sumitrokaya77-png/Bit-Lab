@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pink Cycle - Ad Rewards Hub</title>
+  <style>
+    /* ==========================================================================
+       1. THEME DESIGN SYSTEM & RESET
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #F8F9FA;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #1A1A1A;
+    }
+
+    .phone-container {
+      width: 100%;
+      max-width: 420px;
+      height: 100vh;
+      max-height: 840px;
+      background-color: #FFFFFF;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    }
+
+    /* ==========================================================================
+       2. TOP NAVIGATION GRID (HEADER)
+       ========================================================================== */
+    .menu-header {
+      display: grid;
+      grid-template-columns: 44px 1fr 44px;
+      align-items: center;
+      padding: 16px;
+      background-color: #FFFFFF;
+      border-bottom: 1px solid #FFE4F5;
+      flex-shrink: 0;
+    }
+
+    .btn-back-nav {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background-color: #FFF8FC;
+      border: 1px solid #FFE4F5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FF1FA9;
+      text-decoration: none;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-back-nav:active {
+      background-color: #FFE4F5;
+    }
+
+    .menu-title-heading {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #1A1A1A;
+      letter-spacing: -0.3px;
+    }
+
+    /* ==========================================================================
+       3. WATCH ADS VIEWPORTS CONTROLLER
+       ========================================================================== */
+    .ad-workspace-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 20px;
+      background-color: #FAFAFA;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Top Zone Card Panels */
+    .ad-description-card {
+      width: 100%;
+      background-color: #FFFFFF;
+      border: 1.5px solid #FFF2FA;
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(255, 31, 169, 0.02);
+      margin-bottom: 24px;
+    }
+
+    .badge-premium-tier {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background-color: #FFF0F8;
+      border: 1px solid #FFE1F2;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #FF1FA9;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .dynamic-ad-descriptor {
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 600;
+      color: #4A4A4A;
+    }
+
+    .highlight-pink-token {
+      color: #FF1FA9;
+      font-weight: 800;
+    }
+
+    /* Progress Architecture Tracker */
+    .progress-tracking-block {
+      width: 100%;
+      margin: 8px 0;
+    }
+
+    .progress-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #7A7A85;
+      margin-bottom: 8px;
+    }
+
+    .progress-track-gutter {
+      width: 100%;
+      height: 10px;
+      background-color: #F1F1F5;
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .progress-fill-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #FF1FA9 0%, #FF6EA7 100%);
+      border-radius: 100px;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Middle Zone Actions Blocks */
+    .ad-action-hub-center {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+      gap: 16px;
+    }
+
+    .btn-action-trigger-ad {
+      width: 100%;
+      max-width: 280px;
+      padding: 16px 24px;
+      border-radius: 18px;
+      border: none;
+      background: linear-gradient(135deg, #FF1FA9 0%, #D80085 100%);
+      color: #FFFFFF;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 6px 20px rgba(255, 31, 169, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .btn-action-trigger-ad:active {
+      transform: scale(0.97);
+      box-shadow: 0 3px 10px rgba(255, 31, 169, 0.2);
+    }
+
+    .btn-action-trigger-ad:disabled {
+      background: #E2E2E9;
+      color: #A1A1A8;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    /* Activated Ad-Free Lock State Template Details */
+    .reward-activated-panel {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    .celebration-shield-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 24px;
+      background-color: #E8F5E9;
+      color: #2E7D32;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      border: 1px solid #C8E6C9;
+    }
+
+    .celebration-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #1A1A1A;
+      margin-bottom: 6px;
+    }
+
+    .celebration-subtitle {
+      font-size: 13px;
+      color: #666666;
+      line-height: 1.4;
+    }
+
+    /* Bottom Zone Protection Footnote */
+    .ad-protection-disclaimer-card {
+      width: 100%;
+      background-color: #FFF9FC;
+      border: 1px dashed #FFC2E5;
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+      flex-shrink: 0;
+    }
+
+    .disclaimer-icon-box {
+      color: #FF1FA9;
+      flex-shrink: 0;
+    }
+
+    .disclaimer-text-node {
+      font-size: 12px;
+      line-height: 1.4;
+      font-weight: 600;
+      color: #6C6C75;
+    }
+
+    /* ==========================================================================
+       4. INTERSTITIAL SIMULATED VIDEO AD SCREEN OVERLAY
+       ========================================================================== */
+    .simulated-video-ad-viewport {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000000;
+      z-index: 9999;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .video-ad-header-controls {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .video-countdown-pill {
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+      padding: 6px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+      backdrop-filter: blur(4px);
+    }
+
+    .video-ad-skip-trigger {
+      width: 32px;
+      height: 32px;
+      border-radius: 100px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0.5;
+      pointer-events: none;
+      transition: all 0.2s ease;
+    }
+
+    .video-ad-skip-trigger.skippable-active {
+      opacity: 1;
+      pointer-events: auto;
+      background-color: #FFFFFF;
+      color: #000000;
+      border-color: #FFFFFF;
+    }
+
+    .video-canvas-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .video-canvas-placeholder svg {
+      width: 48px;
+      height: 48px;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    .video-brand-watermark {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    /* Keyframe Animations Engine */
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.5; }
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="phone-container">
+    
+    <!-- Top Navigation Grid Header -->
+    <header class="menu-header">
+      <a href="../menu/M-3line.html" class="btn-back-nav" id="lnk-back-navigation" aria-label="Go back to Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+      </a>
+      <h1 class="menu-title-heading">Remove Ads</h1>
+      <div></div>
+    </header>
+
+    <!-- Ad Operational Engine Body -->
+    <main class="ad-workspace-body">
+      
+      <!-- Top Zone: Dynamic Counter & Context Card -->
+      <section class="ad-description-card" id="card-ad-status-metrics">
+        <div class="badge-premium-tier" id="pill-tier-status">
+          <svg style="width:14px; height:14px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0110 21.007a3.745 3.745 0 01-3.068-1.593 3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0114 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+          </svg>
+          <span id="txt-tier-label">Standard Ad Layer</span>
+        </div>
+        
+        <p class="dynamic-ad-descriptor" id="lbl-context-description">
+          After you watch <span class="highlight-pink-token" id="holder-remaining-count">10</span> more ads, you will no longer see any ads for a <span id="holder-reset-period">month</span>.
+        </p>
+
+        <!-- Progress Metrics Blocks -->
+        <div class="progress-tracking-block" id="panel-progress-indicators">
+          <div class="progress-meta-row">
+            <span>Monthly Goal Progress</span>
+            <span id="holder-progress-ratio">0 / 10 Watched</span>
+          </div>
+          <div class="progress-track-gutter">
+            <div class="progress-fill-bar" id="bar-progress-indicator"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Middle Zone: Action Trigger Hub -->
+      <section class="ad-action-hub-center">
+        <!-- Interactive Play Trigger Button -->
+        <button class="btn-action-trigger-ad" id="btn-watch-ad-action">
+          <svg style="width:22px; height:22px;" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
+          </svg>
+          <span>Watch Ad Now</span>
+        </button>
+
+        <!-- Celebratory Lock Status Template -->
+        <div class="reward-activated-panel" id="panel-ad-free-celebration">
+          <div class="celebration-shield-icon">
+            <svg style="width:36px; height:36px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0110 21.007a3.745 3.745 0 01-3.068-1.593 3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0114 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+            </svg>
+          </div>
+          <h2 class="celebration-title">Premium Ad-Free Active!</h2>
+          <p class="celebration-subtitle">
+            Awesome! You completed your view goal. All app interface ads are completely blocked.
+          </p>
+        </div>
+      </section>
+
+      <!-- Bottom Zone: Data Integrity Disclaimer Box -->
+      <section class="ad-protection-disclaimer-card" id="card-integrity-disclaimer">
+        <div class="disclaimer-icon-box">
+          <svg style="width:20px; height:20px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286zm0 13.036h.008v.008H12v-.008z" />
+          </svg>
+        </div>
+        <p class="disclaimer-text-node">
+          Closing, bypassing, or minimizing the media streaming framework instance prior to explicit timer completion will invalidate validation records and cancel video credit.
+        </p>
+      </section>
+
+    </main>
+
+    <!-- ==========================================================================
+         4. INTERSTITIAL SIMULATED VIDEO AD SCREEN OVERLAY
+         ========================================================================== */ -->
+    <div class="simulated-video-ad-viewport" id="overlay-video-player">
+      <div class="video-ad-header-controls">
+        <div class="video-countdown-pill" id="lbl-ad-timer-pill">Ad: 5s</div>
+        <div class="video-ad-skip-trigger" id="btn-close-ad-overlay" aria-label="Close Ad Interface">
+          <svg style="width:18px; height:18px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </div>
+      </div>
+      
+      <div class="video-canvas-placeholder">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 0 1 0 .656l-5.603 3.113a.375.375 0 0 1-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112Z" />
+        </svg>
+        <div class="video-brand-watermark">Sponsored Video Stream</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==========================================================================
+       5. STATE ARCHITECTURE RUNTIME MOTOR
+       ========================================================================== */ -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      // 1. Core State System Engine Variables
+      let isPremium = false; 
+      let totalAdsRequired = 10;
+      let adsWatchedCount = 0;
+      let remainingAds = 10;
+      let blockAds = false;
+      let adResetPeriod = "month"; 
+      let lastResetTimestamp = null;
+
+      // 2. Fetch DOM Targets Elements
+      const holderRemainingCount = document.getElementById("holder-remaining-count");
+      const holderResetPeriod = document.getElementById("holder-reset-period");
+      const holderProgressRatio = document.getElementById("holder-progress-ratio");
+      const barProgressIndicator = document.getElementById("bar-progress-indicator");
+      const btnWatchAdAction = document.getElementById("btn-watch-ad-action");
+      const panelAdFreeCelebration = document.getElementById("panel-ad-free-celebration");
+      const cardAdStatusMetrics = document.getElementById("card-ad-status-metrics");
+      const pillTierStatus = document.getElementById("pill-tier-status");
+      const txtTierLabel = document.getElementById("txt-tier-label");
+      
+      // Video Overlay DOM Elements
+      const overlayVideoPlayer = document.getElementById("overlay-video-player");
+      const lblAdTimerPill = document.getElementById("lbl-ad-timer-pill");
+      const btnCloseAdOverlay = document.getElementById("btn-close-ad-overlay");
+
+      /**
+       * Synchronization Core Routine: Load Registry State Metrics
+       */
+      function initializeStateFromRegistry() {
+        // Fetch values safely from local persistence storage memory
+        isPremium = localStorage.getItem("pinkCycle_isPremium") === "true";
+        totalAdsRequired = parseInt(localStorage.getItem("pinkCycle_totalAdsRequired")) || 10;
+        adsWatchedCount = parseInt(localStorage.getItem("pinkCycle_adsWatchedCount")) || 0;
+        blockAds = localStorage.getItem("pinkCycle_blockAds") === "true";
+        adResetPeriod = localStorage.getItem("pinkCycle_adResetPeriod") || "month";
+        
+        const cachedTimestamp = localStorage.getItem("pinkCycle_lastResetTimestamp");
+        lastResetTimestamp = cachedTimestamp ? new Date(cachedTimestamp) : null;
+
+        // Run Chronological Expiration Checks Engine
+        evaluateChronologicalResetLifespan();
+
+        // Compute relative dynamic variable derivatives
+        remainingAds = totalAdsRequired - adsWatchedCount;
+        if (remainingAds < 0) remainingAds = 0;
+
+        // Render Current UI Layout Matrix
+        renderUserInterfaceViewports();
+      }
+
+      /**
+       * Lifespan Monitor: Evaluates the 30-Day Ad-Waiver Reset Window
+       */
+      function evaluateChronologicalResetLifespan() {
+        if (!blockAds || !lastResetTimestamp) return;
+
+        const currentTimestamp = new Date();
+        // Compute structural difference in total millisecond steps
+        const calculatedDifferenceInTime = currentTimestamp.getTime() - lastResetTimestamp.getTime();
+        const calculatedElapsedDays = calculatedDifferenceInTime / (1000 * 3600 * 24);
+
+        // Reset system context parameters if the 30-day (month) threshold has been surpassed
+        if (calculatedElapsedDays >= 30) {
+          blockAds = false;
+          adsWatchedCount = 0;
+          lastResetTimestamp = null;
+          
+          localStorage.setItem("pinkCycle_blockAds", "false");
+          localStorage.setItem("pinkCycle_adsWatchedCount", "0");
+          localStorage.removeItem("pinkCycle_lastResetTimestamp");
+          
+          alert("Your monthly reward cycle has reset. View new milestones to maintain ad-free benefits!");
+        }
+      }
+
+      /**
+       * Rendering Interface: Renders the active layout elements on screen based on state
+       */
+      function renderUserInterfaceViewports() {
+        // Handle explicit bypass conditions for premium tiers or completed goals
+        if (isPremium || blockAds || remainingAds === 0) {
+          // Update Status Cards Elements
+          txtTierLabel.textContent = isPremium ? "Premium Account" : "Premium Ad-Free Active";
+          pillTierStatus.style.backgroundColor = "#E8F5E9";
+          pillTierStatus.style.borderColor = "#C8E6C9";
+          pillTierStatus.style.color = "#2E7D32";
+
+          holderRemainingCount.textContent = "0";
+          holderProgressRatio.textContent = `${totalAdsRequired} / ${totalAdsRequired} Completed`;
+          barProgressIndicator.style.width = "100%";
+
+          // Hide standard watch layout triggers and map celebration viewport components
+          btnWatchAdAction.style.display = "none";
+          panelAdFreeCelebration.style.display = "flex";
+          return;
+        }
+
+        // Standard Operation Render Loop
+        holderRemainingCount.textContent = remainingAds;
+        holderResetPeriod.textContent = adResetPeriod;
+        holderProgressRatio.textContent = `${adsWatchedCount} / ${totalAdsRequired} Watched`;
+        
+        // Compute and update progress tracking fill percentages
+        const calculatedPercentage = (adsWatchedCount / totalAdsRequired) * 100;
+        barProgressIndicator.style.width = `${calculatedPercentage}%`;
+
+        // Keep standard interactive watch layout active
+        btnWatchAdAction.style.display = "flex";
+        panelAdFreeCelebration.style.display = "none";
+      }
+
+      /**
+       * Media Controller: Triggers the simulated 5-second video ad instance window
+       */
+      function fireSimulatedVideoFramework() {
+        // Render open the full screen overlay instance portal
+        overlayVideoPlayer.style.display = "flex";
+        
+        // Setup timer countdown tracking configurations
+        let remainingSeconds = 5;
+        lblAdTimerPill.textContent = `Ad: ${remainingSeconds}s`;
+        
+        // Ensure skip buttons are disabled at startup
+        btnCloseAdOverlay.classList.remove("skippable-active");
+
+        const countdownIntervalMotor = setInterval(() => {
+          remainingSeconds--;
+          
+          if (remainingSeconds > 0) {
+            lblAdTimerPill.textContent = `Ad: ${remainingSeconds}s`;
+          } else {
+            // Halt countdown clock engine instances
+            clearInterval(countdownIntervalMotor);
+            
+            // Transform control headers UI layout to completion structures
+            lblAdTimerPill.textContent = "Reward Verified";
+            btnCloseAdOverlay.classList.add("skippable-active");
+          }
+        }, 1000);
+      }
+
+      /**
+       * State Mutator Workflow: Process successful completions and update state counters
+       */
+      function processSuccessfulAdViewCredit() {
+        adsWatchedCount++;
+        remainingAds = totalAdsRequired - adsWatchedCount;
+        if (remainingAds < 0) remainingAds = 0;
+
+        // Commit updated tracking values directly to local storage registry
+        localStorage.setItem("pinkCycle_adsWatchedCount", adsWatchedCount.toString());
+
+        // Check if the target goal has been met
+        if (adsWatchedCount >= totalAdsRequired) {
+          blockAds = true;
+          lastResetTimestamp = new Date();
+          
+          localStorage.setItem("pinkCycle_blockAds", "true");
+          localStorage.setItem("pinkCycle_lastResetTimestamp", lastResetTimestamp.toISOString());
+          
+          alert("Congratulations! You've unlocked an ad-free experience for the next 30 days.");
+        }
+
+        // Render layout updates across screen nodes
+        renderUserInterfaceViewports();
+      }
+
+      // 3. Register Global DOM Events Listeners Intersections
+      btnWatchAdAction.addEventListener("click", fireSimulatedVideoFramework);
+
+      btnCloseAdOverlay.addEventListener("click", () => {
+        // Verify cross-check class state handles to safeguard completion rules
+        if (btnCloseAdOverlay.classList.contains("skippable-active")) {
+          // Dismiss fullscreen video player overlay window
+          overlayVideoPlayer.style.display = "none";
+          
+          // Route data changes down to state processor logic engines
+          processSuccessfulAdViewCredit();
+        }
+      });
+
+      // 4. Fire Core Systems Boot Routines
+      initializeStateFromRegistry();
+    });
+  </script>
+</body>
+</html>

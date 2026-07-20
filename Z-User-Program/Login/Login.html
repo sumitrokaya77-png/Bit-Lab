@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pink Cycle - Welcome</title>
+    <link rel="stylesheet" href="Login.css">
+</head>
+<body>
+
+    <div class="phone-container">
+        
+        <div id="screen-l1" class="auth-screen">
+            <div class="brand-header">
+                <img src="../user_ui_png/pink cycle logo.png" alt="Pink Cycle Logo" class="app-logo">
+                <h1 class="brand-name">PINK CYCLE</h1>
+            </div>
+
+            <div class="auth-card">
+                <form id="form-l1" onsubmit="handleLogin(event)">
+                    <div class="input-group">
+                        <input type="text" id="login-identity" placeholder="Username, Gmail, or Phone Number" required>
+                    </div>
+                    <div class="input-group password-container">
+                        <input type="password" id="login-password" placeholder="Password" required>
+                        <button type="button" class="toggle-password" onclick="togglePasswordVisibility('login-password', this)">
+                            <svg class="eye-icon open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            <svg class="eye-icon closed hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                        </button>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Log In</button>
+                </form>
+            </div>
+
+            <div class="divider-row">
+                <span class="divider-line"></span>
+                <span class="divider-text">or</span>
+                <span class="divider-line"></span>
+            </div>
+
+            <div class="oauth-container">
+                <button type="button" class="link-btn" onclick="navigateTo('l2')">Create a new account</button>
+                
+                <button type="button" class="btn btn-facebook">
+                    <img src="../user_ui_png/facebook-logo.png" alt="Facebook" class="btn-icon">
+                    Continue with Facebook
+                </button>
+                
+                <button type="button" class="btn btn-google">
+                    <img src="../user_ui_png/google-logo.png" alt="Google" class="btn-icon">
+                    Continue with Google
+                </button>
+            </div>
+        </div>
+
+        <div id="screen-l2" class="auth-screen hidden">
+            <div class="brand-header">
+                <img src="../user_ui_png/pink cycle logo.png" alt="Pink Cycle Logo" class="app-logo">
+                <h1 class="brand-name">PINK CYCLE</h1>
+            </div>
+
+            <div class="auth-card">
+                <form id="form-l2" onsubmit="handleRegistration(event)">
+                    <div class="input-group">
+                        <input type="tel" id="reg-phone" placeholder="Mobile Number" required>
+                    </div>
+                    <div class="input-group password-container">
+                        <input type="password" id="reg-password" placeholder="Password" required>
+                        <button type="button" class="toggle-password" onclick="togglePasswordVisibility('reg-password', this)">
+                            <svg class="eye-icon open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            <svg class="eye-icon closed hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                        </button>
+                    </div>
+                    <div class="input-group password-container">
+                        <input type="password" id="reg-confirm-password" placeholder="Confirm Password" required>
+                        <button type="button" class="toggle-password" onclick="togglePasswordVisibility('reg-confirm-password', this)">
+                            <svg class="eye-icon open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            <svg class="eye-icon closed hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                        </button>
+                    </div>
+                    
+                    <div id="password-warning" class="warning-text hidden">
+                        Password is weak. It must be at least 8 characters long and contain both numbers and letters.
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Next</button>
+                </form>
+            </div>
+            
+            <div class="bottom-navigation-fallback">
+                <button type="button" class="link-btn" onclick="navigateTo('l1')">Back to Log In</button>
+            </div>
+        </div>
+
+        <div id="screen-l3" class="auth-screen hidden">
+            <div class="brand-header">
+                <img src="../user_ui_png/pink cycle logo.png" alt="Pink Cycle Logo" class="app-logo">
+                <h1 class="brand-name">PINK CYCLE</h1>
+            </div>
+
+            <div class="auth-card">
+                <form id="form-l3" onsubmit="handleVerification(event)">
+                    <div class="input-group">
+                        <input type="text" id="verification-otp" placeholder="Enter OTP from number or Gmail" required>
+                    </div>
+                    
+                    <div class="timer-container">
+                        <span id="countdown-timer">Re-send in 02 : 00 sec</span>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="date" id="verification-dob" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Next</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="screen-lQ1" class="auth-screen hidden">
+            <header class="questionnaire-header">
+                <img src="../user_ui_png/pink cycle logo.png" alt="Pink Cycle Logo" class="nav-logo">
+                <button type="button" id="skip-btn" class="skip-btn hidden" onclick="handleSkip()">Skip</button>
+            </header>
+
+            <div class="questionnaire-content">
+                <div class="question-box">
+                    
+                    <p id="question-text">Loading question text...</p>
+                    
+                    <div id="dynamic-workspace" class="workspace-area"></div>
+
+                    <button type="button" id="q-next-btn" class="btn btn-primary" onclick="handleQuestionNext()">Next</button>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="Login.js"></script>
+</body>
+</html>

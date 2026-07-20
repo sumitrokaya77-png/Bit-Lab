@@ -1,0 +1,160 @@
+/* ==========================================================================
+   1. CORE CONTAINER & SCROLL ARCHITECTURE
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background-color: transparent; /* Allows parent dashboard styling to show through */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+/* 
+   Independent Scroll Body Context
+   Fills the dashboard viewport seamlessly while keeping contents scrollable.
+*/
+.notification-scroll-container {
+  width: 100%;
+  max-width: 420px; /* Standard matching mobile layout column */
+  height: 100vh;
+  overflow-y: auto; /* ENFORCES EXPLICIT BODY SCROLLING */
+  -webkit-overflow-scrolling: touch; /* Momentum scroll performance for iOS */
+  padding: 16px;
+  padding-top: 100px; /* KEEPS TOP MARGIN CLEAR FOR YOUR MAIN DASHBOARD LOGO/MENU */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scrollbar-width: none; /* Disables intrusive browser layout scrollbars */
+}
+
+.notification-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* ==========================================================================
+   2. GESTURE UNDERLAYS & INTERACTIVE CARDS
+   ========================================================================== */
+.notification-item-container {
+  position: relative;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  flex-shrink: 0; /* Prevents cards from flexing smaller when data scales */
+  transition: max-height 0.3s ease, margin-bottom 0.3s ease, opacity 0.3s ease;
+  max-height: 220px; 
+}
+
+/* Red Delete Slider Underlay */
+.delete-action-underlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #FF3B30;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 24px;
+  border-radius: 16px;
+  z-index: 1;
+}
+
+.delete-action-underlay svg {
+  width: 24px;
+  height: 24px;
+  color: #FFFFFF;
+}
+
+/* Card Foreground Element */
+.notification-card-foreground {
+  position: relative;
+  background-color: #FFFFFF;
+  border: 1.5px solid #FFE9F3;
+  padding: 16px;
+  border-radius: 16px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  z-index: 2;
+  cursor: pointer;
+  transform: translateX(0px);
+  transition: transform 0.15s ease-out;
+  box-shadow: 0 4px 12px rgba(255, 31, 169, 0.02);
+}
+
+/* Leftward translation anchor class triggered via JavaScript */
+.notification-card-foreground.swiped-left {
+  transform: translateX(-70px);
+}
+
+/* Avatar Badges */
+.icon-avatar-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon-avatar-badge svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Category Semantic Variants */
+.cat-appointment .icon-avatar-badge { background-color: #E3F2FD; color: #1E88E5; }
+.cat-appointment .notification-card-foreground { border-left: 4px solid #1E88E5; }
+
+.cat-period .icon-avatar-badge { background-color: #FFF0F6; color: #D31284; }
+.cat-period .notification-card-foreground { border-left: 4px solid #FF1FA9; }
+
+.cat-other .icon-avatar-badge { background-color: #F3E5F5; color: #8E24AA; }
+.cat-other .notification-card-foreground { border-left: 4px solid #8E24AA; }
+
+/* Content Typography Layout */
+.card-content-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.notification-headline-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #202020;
+}
+
+.notification-time-stamp {
+  font-size: 11px;
+  color: #A0A0A8;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.notification-message-body {
+  font-size: 13px;
+  color: #55555C;
+  line-height: 1.42;
+}
+
+/* Smooth Deletion Intermediary State */
+.notification-item-container.purged-collapsed {
+  max-height: 0 !important;
+  margin-bottom: 0 !important;
+  opacity: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}

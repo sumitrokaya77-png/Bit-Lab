@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pink Cycle - Chat Hub</title>
+  <style>
+    /* ==========================================================================
+       1. THEME DESIGN SYSTEM & RESET (Matches Button-Details 1:1)
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #FFFFFF;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #1A1A1A;
+    }
+
+    .phone-container {
+      width: 100%;
+      max-width: 420px;
+      height: 100vh;
+      max-height: 840px;
+      background-color: #FFF0FB;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    }
+
+    /* ==========================================================================
+       2. TOP FIXED NAVIGATION HEADER
+       ========================================================================== */
+    .dashboard-header {
+      display: grid;
+      grid-template-columns: 44px 1fr 44px;
+      align-items: center;
+      padding: 16px;
+      background-color: #FFFFFF;
+      border-bottom: 1px solid #FFE4F5;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+
+    .btn-back-nav {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background-color: #FFF8FC;
+      border: 1px solid #FFE4F5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FF1FA9;
+      text-decoration: none;
+      transition: background-color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-back-nav:active {
+      background-color: #FFE4F5;
+    }
+
+    .dashboard-title-heading {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #1A1A1A;
+      letter-spacing: -0.3px;
+    }
+
+    /* ==========================================================================
+       3. SCROLLABLE SCREEN CANVAS
+       ========================================================================== */
+    .scroll-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 16px;
+      background-color: #FAFAFA;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Navigation Card Configuration */
+    .menu-navigation-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background-color: #FFFFFF;
+      border: 1.5px solid #FFF2FA;
+      border-radius: 20px;
+      padding: 20px 16px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 4px 12px rgba(255, 31, 169, 0.01);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    /* Tactile Micro-Scaling Feedback Loop */
+    .menu-navigation-card:active {
+      transform: scale(0.98);
+      background-color: #FFFDFE;
+      border-color: #FF1FA9;
+      box-shadow: 0 2px 6px rgba(255, 31, 169, 0.04);
+    }
+
+    /* Custom Icon Asset Container Base */
+    .card-icon-frame {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background-color: #FFF0F8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background-color 0.2s ease;
+      color: #FF1FA9;
+    }
+
+    .menu-navigation-card:active .card-icon-frame {
+      background-color: #FFE4F3;
+    }
+
+    /* Central Detailed Text Stack Columns */
+    .card-text-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .card-main-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #FF1FA9;
+      letter-spacing: -0.2px;
+    }
+
+    .card-sub-description {
+      font-size: 12px;
+      line-height: 1.4;
+      color: #666666;
+      font-weight: 500;
+    }
+
+    /* Trailing Right-Hand Path Indicators */
+    .card-chevron-indicator {
+      color: #C5C5C7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 4px;
+      transition: color 0.2s ease;
+    }
+
+    .menu-navigation-card:active .card-chevron-indicator {
+      color: #FF1FA9;
+    }
+
+    /* Styling variant for locked/future features */
+    .card-locked {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .card-locked:active {
+      transform: none;
+      border-color: #FFF2FA;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="phone-container">
+    
+    <!-- Top Static Navigation Bar Header -->
+    <header class="dashboard-header">
+      <!-- Breaks out of dashboard iframe back to main home dashboard if hit -->
+      <a href="../Dashboard/Dashboard.html?tab=chat" target="_top" class="btn-back-nav" aria-label="Back to Dashboard">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width:20px; height:20px;">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+      </a>
+      
+      <h1 class="dashboard-title-heading">AI Chat</h1>
+      <div></div>
+    </header>
+
+    <!-- Scrollable Menu Canvas Space -->
+    <main class="scroll-body">
+
+      <!-- Navigation Element 1: Active AI Chat Engine -->
+      <!-- Added target="_top" to cleanly launch your custom chat interface window as a separate layer -->
+      <a href="ai-chat-interface.html" target="_top" class="menu-navigation-card">
+        <div class="card-icon-frame">
+          <!-- Custom Vector AI Magic Chat Bubble Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" style="width: 32px; height: 32px;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a.598.598 0 01-.655-.57c-.028-.273-.046-.55-.054-.83A6.188 6.188 0 012.25 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+            <path stroke-linecap="round" stroke-linejoin="round" fill="currentColor" d="M17.5 4.5l.25.6.6.25-.6.25-.25.6-.25-.6-.6-.25.6-.25.25-.6z" />
+          </svg>
+        </div>
+        <div class="card-text-stack">
+          <h2 class="card-main-title">AI Virtual Assistant</h2>
+          <p class="card-sub-description">Get instant answers about your cycle variations, symptom logs, and health insights.</p>
+        </div>
+        <div class="card-chevron-indicator">
+          <svg style="width:18px; height:18px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </div>
+      </a>
+
+      <!-- Navigation Element 2: Friends Chat (Placeholder/Locked for now) -->
+      <!--
+      <div class="menu-navigation-card card-locked">
+        <div class="card-icon-frame" style="color: #C5C5C7; background-color: #F5F5F5;">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 32px; height: 32px;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.65-2.42 9.348 9.348 0 00-4.182 0 3 3 0 00-4.65 2.42 9.094 9.094 0 003.741.479m11.662-3.417a17.886 17.886 0 00-16.581 0M16.5 7.5h.008v.008H16.5V7.5zm-6 0h.008v.008H10.5V7.5zM7.5 7.5h.008v.008H7.5V7.5zm9 9h.008v.008H16.5v-.008zm-6 0h.008v.008H10.5v-.008zm-3 0h.008v.008H7.5v-.008z" />
+          </svg>
+        </div>
+        <div class="card-text-stack">
+          <h2 class="card-main-title" style="color: #8E8E93;">Friends Chat</h2>
+          <p class="card-sub-description">Connect, share metrics, and discuss cycles directly with your trusted inner circle.</p>
+        </div>
+        <div class="card-chevron-indicator">
+          <span style="font-size: 11px; font-weight: 700; color: #C5C5C7; text-transform: uppercase;">Soon</span>
+        </div>
+      </div> 
+      -->
+
+      
+      
+      
+      <!-- Navigation Element 3: Doctor Chat (Placeholder/Locked for now) -->
+       <!--
+      <div class="menu-navigation-card card-locked">
+        <div class="card-icon-frame" style="color: #C5C5C7; background-color: #F5F5F5;">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 32px; height: 32px;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <div class="card-text-stack">
+          <h2 class="card-main-title" style="color: #8E8E93;">Doctor Consultation</h2>
+          <p class="card-sub-description">Securely transmit your clinical cycle dashboard charts straight to verified practitioners.</p>
+        </div>
+        <div class="card-chevron-indicator">
+          <span style="font-size: 11px; font-weight: 700; color: #C5C5C7; text-transform: uppercase;">Soon</span>
+        </div> 
+        -->
+        
+      </div>
+
+    </main>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pink Cycle - Settings & Privacy</title>
+  <style>
+    /* ==========================================================================
+       1. THEME DESIGN SYSTEM & RESET
+       ========================================================================== */
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
+    
+    body {
+      background-color: #F8F9FA;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #1A1A1A;
+    }
+
+    .phone-container {
+      width: 100%;
+      max-width: 420px;
+      height: 100vh;
+      max-height: 840px;
+      background-color: #FFFFFF;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    }
+
+    /* ==========================================================================
+       2. TOP NAVIGATION HEADER
+       ========================================================================== */
+    .settings-header {
+      display: grid;
+      grid-template-columns: 44px 1fr 44px;
+      align-items: center;
+      padding: 16px;
+      background-color: #FFFFFF;
+      border-bottom: 1px solid #FFE4F5;
+      flex-shrink: 0;
+    }
+
+    .btn-back-nav {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background-color: #FFF8FC;
+      border: 1px solid #FFE4F5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FF1FA9;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .settings-title { 
+      text-align: center; 
+      font-size: 18px; 
+      font-weight: 800; 
+      color: #1A1A1A; 
+    }
+
+    /* ==========================================================================
+       3. WORKSPACE SCROLL BODY
+       ========================================================================== */
+    .scroll-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 16px;
+      background-color: #FAFAFA;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .section-block-heading {
+      font-size: 11px;
+      font-weight: 800;
+      color: #C0127E;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-left: 4px;
+      margin-bottom: -10px;
+    }
+
+    /* Card Panels Styling */
+    .settings-card {
+      background-color: #FFFFFF;
+      border: 1.5px solid #FFF2FA;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Info Display Layout Grid Rows */
+    .info-display-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #FFF2FA;
+    }
+
+    .info-display-row:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .info-meta-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #7A7A7A;
+    }
+
+    .info-meta-value {
+      font-size: 14px;
+      font-weight: 700;
+      color: #2C2C2C;
+    }
+
+    /* Actionable Clickable Options Styling */
+    .action-row-clickable {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      padding: 4px 0;
+    }
+
+    .action-row-clickable:active { 
+      opacity: 0.6; 
+    }
+
+    .setting-info { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 2px; 
+      padding-right: 12px;
+    }
+
+    .setting-label { 
+      font-size: 14px; 
+      font-weight: 700; 
+      color: #2C2C2C; 
+    }
+
+    .setting-description { 
+      font-size: 12px; 
+      color: #7A7A7A; 
+      line-height: 1.3; 
+    }
+    
+    .chevron-indicator { 
+      color: #C5C5C7; 
+      display: flex;
+      align-items: center;
+    }
+
+    /* Switch Component Engine */
+    .setting-row-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .switch-control {
+      position: relative;
+      display: inline-block;
+      width: 46px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+
+    .switch-control input { opacity: 0; width: 0; height: 0; }
+    
+    .slider-track {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #E2E2E9;
+      transition: .3s;
+      border-radius: 34px;
+    }
+
+    .slider-track:before {
+      position: absolute;
+      content: "";
+      height: 20px; width: 20px;
+      left: 3px; bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider-track { background-color: #FF1FA9; }
+    input:checked + .slider-track:before { transform: translateX(20px); }
+  </style>
+</head>
+<body>
+
+  <div class="phone-container">
+    <!-- Top Static Navigation Bar -->
+    <header class="settings-header">
+      <a href="M-3line.html" class="btn-back-nav" aria-label="Back to Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width:20px; height:20px;">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+      </a>
+      <h1 class="settings-title">Privacy & Settings</h1>
+      <div></div>
+    </header>
+
+    <!-- Main Settings Controller Interface Lane -->
+    <main class="scroll-body">
+      
+      <!-- Section 1: Core User Registry Data Metrics (Replaces Old App Security) -->
+      <h2 class="section-block-heading">Personal Information</h2>
+      <div class="settings-card">
+        <!-- Profile Metadata View Metrics -->
+        <div class="info-display-row">
+          <span class="info-meta-label">User Name</span>
+          <span class="info-meta-value" id="txt-info-username">--</span>
+        </div>
+        <div class="info-display-row">
+          <span class="info-meta-label">Email / Phone</span>
+          <span class="info-meta-value" id="txt-info-contact">--</span>
+        </div>
+        <div class="info-display-row">
+          <span class="info-meta-label">User ID</span>
+          <span class="info-meta-value" id="txt-info-userid" style="font-family: monospace; font-size:13px; color:#C0127E;">--</span>
+        </div>
+        <div class="info-display-row">
+          <span class="info-meta-label">Account Created</span>
+          <span class="info-meta-value" id="txt-info-created-date">--</span>
+        </div>
+      </div>
+
+      <!-- Section 2: Credential Configuration Actions Frame -->
+      <h2 class="section-block-heading">Security Credentials</h2>
+      <div class="settings-card">
+        <!-- Change Email or Phone Input Trigger -->
+        <div class="action-row-clickable" id="btn-action-change-contact">
+          <div class="setting-info">
+            <span class="setting-label">Change Email or Number</span>
+            <span class="setting-description">Update your registered notification destination contact handle.</span>
+          </div>
+          <span class="chevron-indicator">
+            <svg style="width:18px; height:18px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </span>
+        </div>
+
+        <!-- Change Master Entry Password Trigger -->
+        <div class="action-row-clickable" id="btn-action-change-password">
+          <div class="setting-info">
+            <span class="setting-label">Change Password</span>
+            <span class="setting-description">Update your account authentication sign-in token passphrase.</span>
+          </div>
+          <span class="chevron-indicator">
+            <svg style="width:18px; height:18px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- Section 3: Data & Analytics -->
+      <h2 class="section-block-heading">Data & Analytics</h2>
+      <div class="settings-card">
+        <div class="setting-row-toggle">
+          <div class="setting-info">
+            <span class="setting-label">Share Diagnostic Analytics</span>
+            <span class="setting-description">Transmit crash logs anonymously to help optimize stability updates.</span>
+          </div>
+          <label class="switch-control">
+            <input type="checkbox" id="chk-share-logs">
+            <span class="slider-track"></span>
+          </label>
+        </div>
+
+        <div class="action-row-clickable" id="btn-export-backup-records">
+          <div class="setting-info">
+            <span class="setting-label">Export Cycle Ledger (JSON)</span>
+            <span class="setting-description">Download your complete encrypted logging timeline report.</span>
+          </div>
+          <span class="chevron-indicator">
+            <svg style="width:18px; height:18px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+            </svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- Section 4: Critical Destruction Matrix Gateway -->
+      <h2 class="section-block-heading">Danger Zone</h2>
+      <div class="settings-card" style="border-color: #FFE4E6;">
+        <div class="action-row-clickable" id="btn-action-delete-account">
+          <div class="setting-info">
+            <span class="setting-label" style="color: #D80027;">Delete Account</span>
+            <span class="setting-description">Irreversibly delete your configuration profile and reset the system.</span>
+          </div>
+          <span class="chevron-indicator" style="color: #D80027;">
+            <svg style="width:18px; height:18px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.34 6.14m-4.08 0L10 9m4.34 3.04a12.02 12.02 0 00-3.14 0m3.14 0a12.01 12.01 0 00-3.14 0M9.25 10.25h5.5M19.25 7.25h-14.5m1.5 0l.9 11.2a2.25 2.25 0 002.2 2.05h6.3a2.25 2.25 0 002.2-2.05l.9-11.2" />
+            </svg>
+          </span>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ==========================================================================
+       4. CENTRAL APPLICATION BUSINESS SCRIPT LOGIC
+       ========================================================================== */ -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      // A. Setup Core Dynamic Tracking Variables
+      const user_id = "PC-78392-NZ"; // Static variable configuration parameter trace tracking node
+      
+      // Capture Display Element UI Handles
+      const txtInfoUsername = document.getElementById("txt-info-username");
+      const txtInfoContact = document.getElementById("txt-info-contact");
+      const txtInfoUserid = document.getElementById("txt-info-userid");
+      const txtInfoCreatedDate = document.getElementById("txt-info-created-date");
+
+      // Capture Interactive Action Control Target Elements
+      const btnChangeContact = document.getElementById("btn-action-change-contact");
+      const btnChangePassword = document.getElementById("btn-action-change-password");
+      const btnDeleteAccount = document.getElementById("btn-action-delete-account");
+      const btnExportBackupRecords = document.getElementById("btn-export-backup-records");
+      const logsSwitch = document.getElementById("chk-share-logs");
+
+      /**
+       * Interface Refresh Sync Loop: Reads current storage states and remaps UI outputs
+       */
+      function executeProfileInterfaceSynchronization() {
+        // Enforce fallback base parameters if variables are missing
+        const activeProfileNameStr = localStorage.getItem("pinkCycle_userName") || "App User";
+        const activeContactHandleStr = localStorage.getItem("pinkCycle_userContact") || "user@example.com";
+        
+        // Handle persistent verification of creation timestamps
+        let registrationTimestampStr = localStorage.getItem("pinkCycle_createdAt");
+        if (!registrationTimestampStr) {
+          registrationTimestampStr = "2026-03-12"; // Sensible timeline fallback context
+          localStorage.setItem("pinkCycle_createdAt", registrationTimestampStr);
+        }
+
+        // Project updates across interface targets
+        txtInfoUsername.textContent = activeProfileNameStr;
+        txtInfoContact.textContent = activeContactHandleStr;
+        txtInfoUserid.textContent = user_id; // Renders from the requested user_id variable allocation block
+        txtInfoCreatedDate.textContent = formatStringDateToHumanReadable(registrationTimestampStr);
+
+        // Map operational state indicators for separate auxiliary settings toggles
+        logsSwitch.checked = localStorage.getItem("pinkCycle_transmitDiagnostics") !== "false";
+      }
+
+      /**
+       * Chrono-String Parser Utility
+       */
+      function formatStringDateToHumanReadable(isoDateString) {
+        try {
+          const formattingOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+          return new Date(isoDateString).toLocaleDateString(undefined, formattingOptions);
+        } catch (exceptionErr) {
+          return isoDateString;
+        }
+      }
+
+      // B. Wire Functional Interface Event Monitors
+      
+      // Option 1: Process Target Contact Value Mutation Loop
+      btnChangeContact.addEventListener("click", () => {
+        const structuralCurrentContact = localStorage.getItem("pinkCycle_userContact") || "user@example.com";
+        const requestedInputVal = prompt("Provide your updated registration Email address or Phone handle:", structuralCurrentContact);
+        
+        if (requestedInputVal && requestedInputVal.trim().length > 3) {
+          localStorage.setItem("pinkCycle_userContact", requestedInputVal.trim());
+          alert("Success: Account connection coordinates updated.");
+          executeProfileInterfaceSynchronization();
+        } else if (requestedInputVal) {
+          alert("Invalid Entry: The entry parameters provided are too short.");
+        }
+      });
+
+      // Option 2: Process Passphrase Change Requests
+      btnChangePassword.addEventListener("click", () => {
+        const storedPasswordFallback = localStorage.getItem("pinkCycle_userPassword") || "Pass123";
+        const verificationCheckInput = prompt("Confirm your old account password:");
+
+        if (verificationCheckInput === storedPasswordFallback) {
+          const chosenNewPasswordStr = prompt("Provide your new entry account password:");
+          if (chosenNewPasswordStr && chosenNewPasswordStr.trim().length >= 4) {
+            localStorage.setItem("pinkCycle_userPassword", chosenNewPasswordStr.trim());
+            alert("Security parameters reassigned. Use your new password on subsequent session validation attempts.");
+          } else if (chosenNewPasswordStr) {
+            alert("Process Terminated: Password length parameter must contain 4 characters or more.");
+          }
+        } else if (verificationCheckInput !== null) {
+          alert("Authentication Failure: The password confirmation step matches an invalid token profile.");
+        }
+      });
+
+      // Option 3: Diagnostic Toggle Monitoring Track
+      logsSwitch.addEventListener("change", (eventRef) => {
+        localStorage.setItem("pinkCycle_transmitDiagnostics", eventRef.target.checked);
+      });
+
+      // Option 4: Simulated Local Schema Export Trigger
+      btnExportBackupRecords.addEventListener("click", () => {
+        alert("JSON Export: Security profile matrix verification successful. Download path generated.");
+      });
+
+      // Option 5: Complete Account Wiping Execution Sequence (Destructive Matrix Loop)
+      btnDeleteAccount.addEventListener("click", () => {
+        const primaryDestructionPrompt = confirm("CRITICAL ACCELERATED WARNING: Clicking OK completely deletes your login credentials, profile identifiers, health configurations, and ad-free waiver logs. Proceed?");
+        
+        if (primaryDestructionPrompt) {
+          const finalVerificationCheck = confirm("FINAL CONFIRMATION REQUIRED: This action cannot be undone. Wipe all application data?");
+          
+          if (finalVerificationCheck) {
+            // Drop database allocations entirely across local parameters maps
+            localStorage.clear();
+            alert("Account profiles cleared completely. The application environment will reset now.");
+            
+            // Redirect page back to parent container tracking framework index
+            window.location.href = "menu-3line.html";
+          }
+        }
+      });
+
+      // C. Boot Database Sync Initialization Sequence
+      executeProfileInterfaceSynchronization();
+    });
+  </script>
+</body>
+</html>

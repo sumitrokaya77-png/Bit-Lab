@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pink Cycle - Add Period Details</title>
+  <link rel="stylesheet" href="P-record-details.css">
+</head>
+<body>
+
+  <div class="phone-container">
+    
+    <!-- Independent Top Navigation Header System -->
+    <header class="dashboard-header">
+      <!-- UPDATE THIS LINE INSIDE YOUR record-details.html FILE -->
+<a href="../Dashboard/Dashboard.html?tab=period" target="_top" class="btn-back-nav" aria-label="Back to Dashboard">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="icon-back">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+  </svg>
+</a>
+
+      <h1 class="dashboard-title-heading">Add Period Details</h1>
+      <div class="header-spacer"></div>
+    </header>
+
+    <!-- Search Execution Input Block -->
+    <div class="search-wrapper">
+      <div class="search-pill-container">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="search-icon">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z" />
+        </svg>
+        <input type="text" id="symptomSearch" placeholder="Search Period Details" autocomplete="off">
+      </div>
+    </div>
+
+    <!-- Scrollable Screen Component Viewport Canvas -->
+    <main class="scroll-body-canvas">
+
+      <!-- Chosen Details Active Display Board -->
+      <section class="chosen-details-board">
+        <div class="board-header">
+          <h2 class="board-title">Chosen Details</h2>
+          <div class="menu-dropdown-wrapper">
+            <button class="btn-trigger-menu" id="menuDropdownTrigger" aria-label="Options Menu">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="icon-dots">
+                <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+              </svg>
+            </button>
+            
+            <!-- Absolute Contextual Floating Dropdown List Layer -->
+            <div class="dropdown-menu-list" id="dropdownMenuList">
+              <button type="button" class="dropdown-item-btn" id="actionAddPrevious">Add from Previous</button>
+              <button type="button" class="dropdown-item-btn item-danger" id="actionDeleteAll">Delete All</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Workspace Container Area -->
+        <div id="chosenContentContainer">
+          <!-- State-driven log items or empty indicators populate dynamically here -->
+        </div>
+      </section>
+
+      <!-- Category Discovery Selection Zone -->
+      <div id="symptomsDiscoveryZone">
+        
+        <!-- Category Segment: Period & Body -->
+        <section class="category-block-segment" data-category="Period and body">
+          <h3 class="category-section-title">Period and body</h3>
+          <div class="symptom-card-grid">
+            <div class="symptom-selectable-card" data-symptom-id="flow">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C9 7 6 10.5 6 14a6 6 0 0 0 12 0c0-3.5-3-7-6-11Z"/><path d="M9 12h6"/><path d="M8.5 15h7"/><path d="M10 18h4"/></svg></div>
+              <span class="card-label-text">Flow</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="cramps">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 10c1.5 6 4 9 7 9s5.5-3 7-9"/><path d="M8 7c1.2 1.4 2.5 2 4 2s2.8-.6 4-2"/><path d="M12 11l-2 3h3l-2 3"/></svg></div>
+              <span class="card-label-text">Cramps</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="blood-clots">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C9 7 6 10.5 6 14a6 6 0 0 0 12 0c0-3.5-3-7-6-11Z"/><circle cx="10" cy="14" r="1"/><circle cx="14" cy="16" r="1"/></svg></div>
+              <span class="card-label-text">Blood Clots</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="spotting">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7c-2 2.7-3.5 4.6-3.5 6.6a3.5 3.5 0 0 0 7 0C15.5 11.6 14 9.7 12 7Z"/><path d="M5 10h.01"/><path d="M7 17h.01"/><path d="M18 9h.01"/><path d="M18 17h.01"/></svg></div>
+              <span class="card-label-text">Spotting</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="back-pain">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4c-2 2.2-3 5-3 8s1 5.8 3 8"/><path d="M14 4c2 2.2 3 5 3 8s-1 5.8-3 8"/><path d="M12 5v14"/><path d="M12 8h2"/><path d="M12 12h-2"/><path d="M12 16h2"/><path d="M19 9l2-1"/><path d="M19 12h3"/><path d="M19 15l2 1"/></svg></div>
+              <span class="card-label-text">Back Pain</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="headache">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18v-3.5A7 7 0 0 1 18.5 10c.8 1 1.5 2.4 1.5 4v4"/><path d="M6 18h4"/><path d="M16 18h4"/><path d="M13 4l-3 5h4l-3 5"/><path d="M4 11H2"/><path d="M22 11h-2"/></svg></div>
+              <span class="card-label-text">Headache</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Category Segment: Symptoms -->
+        <section class="category-block-segment" data-category="Symptoms">
+          <h3 class="category-section-title">Symptoms</h3>
+          <div class="symptom-card-grid">
+            <div class="symptom-selectable-card" data-symptom-id="bloating">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8c-2 1.8-3 4.2-3 7a5 5 0 0 0 5 5h4a5 5 0 0 0 5-5c0-2.8-1-5.2-3-7"/><path d="M8 13H4"/><path d="M4 13l2-2"/><path d="M4 13l2 2"/><path d="M16 13h4"/><path d="M20 13l-2-2"/><path d="M20 13l-2 2"/></svg></div>
+              <span class="card-label-text">Bloating</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="breast-tenderness">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8c-2 2-3 4.5-3 7a4 4 0 0 0 8 0"/><path d="M17 8c2 2 3 4.5 3 7a4 4 0 0 1-8 0"/><path d="M12 8v7"/><path d="M6 5l-1-2"/><path d="M9 5V3"/><path d="M18 5l1-2"/><path d="M15 5V3"/></svg></div>
+              <span class="card-label-text">Breast Tenderness</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="fatigue">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 4a8 8 0 1 0 3 12c-5 1-9-3-8-8 0-1.5 1-3 5-4Z"/><path d="M8 14h2"/><path d="M13 14h2"/><path d="M10 17c1.2.7 2.8.7 4 0"/></svg></div>
+              <span class="card-label-text">Fatigue</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="acne">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11a6 6 0 0 1 12 0v3a6 6 0 0 1-12 0v-3Z"/><path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c1.2.7 2.8.7 4 0"/><circle cx="16" cy="8" r="1"/><path d="M18 6l1-1"/><path d="M19 8h1"/></svg></div>
+              <span class="card-label-text">Acne</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="nausea">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11a6 6 0 0 1 12 0v3a6 6 0 0 1-12 0v-3Z"/><path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M9 17c1-1 5-1 6 0"/><path d="M10 7c2-2 6 1 3 3-2 1-1 3 2 3"/></svg></div>
+              <span class="card-label-text">Nausea</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="food-cravings">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19s-6-3.8-6-8a3.2 3.2 0 0 1 6-1.6A3.2 3.2 0 0 1 18 11c0 4.2-6 8-6 8Z"/><path d="M4 4v6"/><path d="M2.5 4v3"/><path d="M5.5 4v3"/><path d="M4 10v9"/><path d="M20 4v15"/><path d="M18 4c0 3 2 4 2 6"/></svg></div>
+              <span class="card-label-text">Food Cravings</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Category Segment: Mood -->
+        <section class="category-block-segment" data-category="Mood">
+          <h3 class="category-section-title">Mood</h3>
+          <div class="symptom-card-grid">
+            <div class="symptom-selectable-card" data-symptom-id="happy">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><path d="M8.5 10.5c.7.6 1.5.6 2.2 0"/><path d="M13.3 10.5c.7.6 1.5.6 2.2 0"/><path d="M8.5 14.5c1.5 2 5.5 2 7 0"/></svg></div>
+              <span class="card-label-text">Happy</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="calm">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="6"/><path d="M8.5 12h2"/><path d="M13.5 12h2"/><path d="M10 16c1.2.7 2.8.7 4 0"/><path d="M15 5c2.8 0 4 1.2 4 4-2.8 0-4-1.2-4-4Z"/><path d="M15 9l4-4"/></svg></div>
+              <span class="card-label-text">Calm</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="sad">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><path d="M9 10h.01"/><path d="M15 10h.01"/><path d="M9 16c1-1 5-1 6 0"/><path d="M16.5 12.5c-.8 1-.8 1.7 0 2.5.8-.8.8-1.5 0-2.5Z"/></svg></div>
+              <span class="card-label-text">Sad</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="angry">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><path d="M8 9l3 1"/><path d="M16 9l-3 1"/><path d="M9 13h.01"/><path d="M15 13h.01"/><path d="M9 17c1.5-1 4.5-1 6 0"/></svg></div>
+              <span class="card-label-text">Angry</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="irritable">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="12" r="6"/><path d="M8.5 10.5h.01"/><path d="M13.5 10.5h.01"/><path d="M9 16c1.2-.7 2.8-.7 4 0"/><path d="M18 7l2 2-2 2 2 2"/></svg></div>
+              <span class="card-label-text">Irritable</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="anxious">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><path d="M8 10c.8-.7 1.7-.7 2.5 0"/><path d="M13.5 10c.8-.7 1.7-.7 2.5 0"/><path d="M9 16c1-1 5-1 6 0"/><path d="M7 19h2l1-2 2 4 1-2h4"/></svg></div>
+              <span class="card-label-text">Anxious</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Category Segment: Lifestyle -->
+        <section class="category-block-segment" data-category="Lifestyle">
+          <h3 class="category-section-title">Lifestyle</h3>
+          <div class="symptom-card-grid">
+            <div class="symptom-selectable-card" data-symptom-id="sleep">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 4a8 8 0 1 0 3 12c-5 1-9-3-8-8 0-1.5 1-3 5-4Z"/><path d="M6 5v2"/><path d="M5 6h2"/></svg></div>
+              <span class="card-label-text">Sleep</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="exercise">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="5" r="1.5"/><path d="M12 8l-2.5 4H13l2 3"/><path d="M13 9l3 2 3-1"/><path d="M10 12l-2 4-3 2"/><path d="M15 15l2 4h3"/></svg></div>
+              <span class="card-label-text">Exercise</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="water-intake">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"/><path d="M10 6h4"/><path d="M8 8c0-1.2.8-2 2-2h4c1.2 0 2 .8 2 2v11c0 1.2-.8 2-2 2h-4c-1.2 0-2-.8-2-2V8Z"/><path d="M12 11c-1.2 1.5-2 2.5-2 3.5a2 2 0 0 0 4 0c0-1-.8-2-2-3.5Z"/></svg></div>
+              <span class="card-label-text">Water Intake</span>
+            </div>
+            <div class="symptom-selectable-card" data-symptom-id="energy-level">
+              <div class="card-checkmark">✓</div>
+              <div class="vector-graphic-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H4V8Z"/><path d="M22 11v2"/><path d="M12 9l-3 4h3l-2 4"/></svg></div>
+              <span class="card-label-text">Energy Level</span>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Sticky Bottom Fixed Execution Button Container -->
+    <footer class="sticky-footer-cta">
+      <button type="button" class="btn-primary-add-floating" id="btnStickyAddPromotion">
+        <div class="circle-plus-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+        </div>
+        <span>Add</span>
+      </button>
+    </footer>
+
+  </div>
+
+  <script src="P-record-details.js"></script>
+</body>
+</html>

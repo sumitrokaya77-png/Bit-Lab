@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pink Cycle - Chat Settings</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #F8F9FA;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #1A1A1A;
+    }
+    .phone-container {
+      width: 100%;
+      max-width: 420px;
+      height: 100vh;
+      max-height: 840px;
+      background-color: #FFFFFF;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    }
+    .settings-header {
+      display: grid;
+      grid-template-columns: 44px 1fr 44px;
+      align-items: center;
+      padding: 16px;
+      background-color: #FFFFFF;
+      border-bottom: 1px solid #FFE4F5;
+      flex-shrink: 0;
+    }
+    .btn-back-nav {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background-color: #FFF8FC;
+      border: 1px solid #FFE4F5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FF1FA9;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .settings-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #1A1A1A;
+    }
+    .scroll-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 16px;
+      background-color: #FAFAFA;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .settings-card {
+      background-color: #FFFFFF;
+      border: 1.5px solid #FFF2FA;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .setting-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .setting-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding-right: 12px;
+    }
+    .setting-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #2C2C2C;
+    }
+    .setting-description {
+      font-size: 12px;
+      color: #7A7A7A;
+      line-height: 1.3;
+    }
+    /* Custom Toggle Switch System */
+    .switch-control {
+      position: relative;
+      display: inline-block;
+      width: 46px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+    .switch-control input { opacity: 0; width: 0; height: 0; }
+    .slider-track {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #E2E2E9;
+      transition: .3s;
+      border-radius: 34px;
+    }
+    .slider-track:before {
+      position: absolute;
+      content: "";
+      height: 20px; width: 20px;
+      left: 3px; bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+    input:checked + .slider-track { background-color: #FF1FA9; }
+    input:checked + .slider-track:before { transform: translateX(20px); }
+
+    .btn-danger-action {
+      width: 100%;
+      padding: 14px;
+      background-color: #FFF2F4;
+      border: 1px solid #FFE4E6;
+      border-radius: 12px;
+      color: #D80027;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .btn-danger-action:active { background-color: #FFE4E6; }
+  </style>
+</head>
+<body>
+
+  <div class="phone-container">
+    <header class="settings-header">
+      <a href="M-3line.html" class="btn-back-nav">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width:20px; height:20px;"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
+      </a>
+      <h1 class="settings-title">Chat Settings</h1>
+      <div></div>
+    </header>
+
+    <main class="scroll-body">
+      <div class="settings-card">
+        <!-- Option 1: Global Mute Switch -->
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-label">Stop Chat Notifications</span>
+            <span class="setting-description">Mute all incoming consultation messages and sound alerts instantly.</span>
+          </div>
+          <label class="switch-control">
+            <input type="checkbox" id="chk-stop-chat-notif">
+            <span class="slider-track"></span>
+          </label>
+        </div>
+
+        <!-- Option 2: Read Receipts Toggle -->
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-label">Send Read Receipts</span>
+            <span class="setting-description">Allow system doctors or support leads to see when you read messages.</span>
+          </div>
+          <label class="switch-control">
+            <input type="checkbox" id="chk-read-receipts">
+            <span class="slider-track"></span>
+          </label>
+        </div>
+
+        <!-- Option 3: Media Auto Download Toggle -->
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-label">Media Auto-Download</span>
+            <span class="setting-description">Download charts and custom resources automatically via mobile data plans.</span>
+          </div>
+          <label class="switch-control">
+            <input type="checkbox" id="chk-auto-download">
+            <span class="slider-track"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Action Option 4: Data Clean Loop -->
+      <button class="btn-danger-action" id="btn-wipe-chat-cache" type="button">Wipe Local Chat History</button>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const chatNotifSwitch = document.getElementById("chk-stop-chat-notif");
+      const readReceiptSwitch = document.getElementById("chk-read-receipts");
+      const downloadSwitch = document.getElementById("chk-auto-download");
+      const wipeCacheBtn = document.getElementById("btn-wipe-chat-cache");
+
+      // Load persistent choices
+      chatNotifSwitch.checked = localStorage.getItem("pinkCycle_stopChatNotif") === "true";
+      readReceiptSwitch.checked = localStorage.getItem("pinkCycle_sendReceipts") !== "false"; // default true
+      downloadSwitch.checked = localStorage.getItem("pinkCycle_mediaDownload") === "true";
+
+      // Event monitors
+      chatNotifSwitch.addEventListener("change", (e) => localStorage.setItem("pinkCycle_stopChatNotif", e.target.checked));
+      readReceiptSwitch.addEventListener("change", (e) => localStorage.setItem("pinkCycle_sendReceipts", e.target.checked));
+      downloadSwitch.addEventListener("change", (e) => localStorage.setItem("pinkCycle_mediaDownload", e.target.checked));
+
+      wipeCacheBtn.addEventListener("click", () => {
+        if(confirm("Are you sure you want to delete all cached message data? This action cannot be undone.")) {
+          alert("Chat history cache cleared completely.");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
